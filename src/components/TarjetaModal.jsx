@@ -1,6 +1,7 @@
 import { useRef } from "react";
-import anrlogo from "../img/anrlogo.webp";
-import logodavid from "../img/davidlogo.webp";
+import partyLogo from "../img/party-logo.webp";
+import candidateLogo from "../img/candidate-logo.webp";
+import { CAMPAIGN } from "../config/campaign";
 
 export function TarjetaModal({ votante, onClose }) {
   const cardRef = useRef(null);
@@ -30,8 +31,8 @@ export function TarjetaModal({ votante, onClose }) {
       votante.seccional ? `📋 Seccional: *${votante.seccional}*` : null,
       votante.barrio ? `🏘️ Barrio: *${votante.barrio}*` : null,
       ``,
-      `¡Recordá votar por David Dvdburg!`,
-      `*Lista 1 — Opción 7 — Concejal Tobatí 2026* 🟢`,
+      `¡Recordá votar por ${CAMPAIGN.candidateName}!`,
+      `*Lista ${CAMPAIGN.listNumber} — Opción ${CAMPAIGN.optionNumber} — ${CAMPAIGN.position} ${CAMPAIGN.location} ${CAMPAIGN.year}* 🟢`,
     ].filter(Boolean).join("\n");
 
     window.open(`https://wa.me/?text=${encodeURIComponent(lineas)}`, "_blank");
@@ -51,21 +52,21 @@ export function TarjetaModal({ votante, onClose }) {
           {/* Header rojo */}
           <div className="relative flex items-center gap-3 px-5 py-4" style={{ background: "linear-gradient(135deg, #5c0614 0%, #C8102E 100%)" }}>
             <img
-              src={anrlogo}
-              alt="ANR"
+              src={partyLogo}
+              alt={CAMPAIGN.partyAbbr}
               crossOrigin="anonymous"
               className="h-12 w-12 flex-shrink-0 rounded-full object-cover"
               style={{ border: "2px solid rgba(255,255,255,0.3)" }}
             />
             <div className="flex-1 min-w-0">
-              <div className="font-condensed text-[9px] font-bold uppercase tracking-[0.2em] text-white/60">Partido Colorado — ANR</div>
-              <div className="font-condensed text-[17px] font-black uppercase leading-tight text-white">David Dvdburg</div>
-              <div className="font-condensed text-[10px] font-bold uppercase tracking-[0.08em] text-white/75">Concejal · Tobatí 2026</div>
+              <div className="font-condensed text-[9px] font-bold uppercase tracking-[0.2em] text-white/60">{CAMPAIGN.party} — {CAMPAIGN.partyAbbr}</div>
+              <div className="font-condensed text-[17px] font-black uppercase leading-tight text-white">{CAMPAIGN.candidateName}</div>
+              <div className="font-condensed text-[10px] font-bold uppercase tracking-[0.08em] text-white/75">{CAMPAIGN.position} · {CAMPAIGN.location} {CAMPAIGN.year}</div>
             </div>
             <div className="flex-shrink-0 flex flex-col items-center rounded-xl px-3 py-2" style={{ background: "rgba(0,0,0,0.25)" }}>
               <div className="font-condensed text-[8px] font-bold uppercase tracking-[0.15em] text-white/60">Lista</div>
-              <div className="font-condensed text-[26px] font-black leading-none text-white">1</div>
-              <div className="font-condensed text-[9px] font-bold text-white/70">Opción 7</div>
+              <div className="font-condensed text-[26px] font-black leading-none text-white">{CAMPAIGN.listNumber}</div>
+              <div className="font-condensed text-[9px] font-bold text-white/70">Opción {CAMPAIGN.optionNumber}</div>
             </div>
           </div>
 
@@ -109,7 +110,7 @@ export function TarjetaModal({ votante, onClose }) {
           {/* Footer */}
           <div className="px-5 pb-3 text-center">
             <div className="font-condensed text-[10px] font-bold uppercase tracking-[0.2em] text-brand">
-              ¡Contamos con tu voto! · Tobatí 2026
+              ¡Contamos con tu voto! · {CAMPAIGN.location} {CAMPAIGN.year}
             </div>
           </div>
 

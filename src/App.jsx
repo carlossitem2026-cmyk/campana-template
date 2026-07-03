@@ -7,8 +7,9 @@ import { supabase, supabaseAuth } from "./lib/supabase";
 import { normalizarCedula, LISTA_BARRIOS } from "./utils/helpers";
 import { LoginScreen } from "./components/LoginScreen";
 import { TarjetaModal } from "./components/TarjetaModal";
-import logodavid from "./img/davidlogo.webp";
-import anrlogo from "./img/anrlogo.webp";
+import candidateLogo from "./img/candidate-logo.webp";
+import partyLogo from "./img/party-logo.webp";
+import { CAMPAIGN } from "./config/campaign";
 import "./styles.css";
 
 
@@ -369,9 +370,9 @@ export default function App() {
     const crearHoja = (nombreHoja, lista) => {
       const sheet = workbook.addWorksheet(nombreHoja.substring(0, 31));
       const esListaGeneral = nombreHoja === "LISTA GENERAL"; const colFinal = esListaGeneral ? "I" : "J";
-      sheet.addRow(["POR NUEVOS PROYECTOS PARA TOBATÍ"]); sheet.mergeCells(`A1:${colFinal}1`);
+      sheet.addRow([`${CAMPAIGN.tagline.toUpperCase()} ${CAMPAIGN.location.toUpperCase()}`]); sheet.mergeCells(`A1:${colFinal}1`);
       sheet.getRow(1).height = 30; sheet.getRow(1).getCell(1).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC8102E" } }; sheet.getRow(1).getCell(1).font = { color: { argb: "FFFFFFFF" }, size: 18, bold: true }; sheet.getRow(1).getCell(1).alignment = { vertical: "middle", horizontal: "center" };
-      sheet.addRow(["DAVID DVDBURG 2026"]); sheet.mergeCells(`A2:${colFinal}2`);
+      sheet.addRow([`${CAMPAIGN.candidateName.toUpperCase()} ${CAMPAIGN.year}`]); sheet.mergeCells(`A2:${colFinal}2`);
       sheet.getRow(2).height = 20; sheet.getRow(2).getCell(1).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC8102E" } }; sheet.getRow(2).getCell(1).font = { color: { argb: "FFFFFFFF" }, size: 12, bold: true }; sheet.getRow(2).getCell(1).alignment = { vertical: "middle", horizontal: "center" };
       sheet.addRow([]);
       const anchosColumnas = esListaGeneral ? [5, 25, 25, 12, 17, 15, 25, 37, 40] : [5, 25, 25, 12, 17, 15, 25, 37, 20, 40];
@@ -391,7 +392,7 @@ export default function App() {
     crearHoja("LISTA GENERAL", todosVotantesUnicos);
     const nombresCaptadores = [...new Set(todosVotantesNormalizados.map((v) => v.por_parte_de_nombre).filter(Boolean))];
     nombresCaptadores.forEach((nombre) => { const datosMiembro = todosVotantesNormalizados.filter((v) => v.por_parte_de_nombre === nombre); if (datosMiembro.length > 0) crearHoja(nombre, datosMiembro); });
-    const buffer = await workbook.xlsx.writeBuffer(); saveAs(new Blob([buffer]), "Campaña_David_Dvdburg.xlsx");
+    const buffer = await workbook.xlsx.writeBuffer(); saveAs(new Blob([buffer]), `Campaña_${CAMPAIGN.candidateName.replace(/\s+/g, "_")}.xlsx`);
     setLoading(false);
   };
 
@@ -508,12 +509,12 @@ export default function App() {
         <div className="flex-shrink-0 border-b border-zinc-100 px-5 pb-5 pt-6">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <img src={anrlogo} alt="ANR" className="h-10 w-10 rounded-full border-2 border-brand/40 object-cover" />
+              <img src={partyLogo} alt={CAMPAIGN.partyAbbr} className="h-10 w-10 rounded-full border-2 border-brand/40 object-cover" />
               <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white" />
             </div>
             <div>
-              <div className="font-display text-[18px] leading-none tracking-wider text-zinc-900">DAVID DVDBURG</div>
-              <div className="mt-0.5 font-condensed text-[9px] font-bold uppercase tracking-[0.12em] text-zinc-400">CONCEJAL 2026 · LISTA 1</div>
+              <div className="font-display text-[18px] leading-none tracking-wider text-zinc-900">{CAMPAIGN.candidateName.toUpperCase()}</div>
+              <div className="mt-0.5 font-condensed text-[9px] font-bold uppercase tracking-[0.12em] text-zinc-400">{CAMPAIGN.position.toUpperCase()} {CAMPAIGN.year} · LISTA {CAMPAIGN.listNumber}</div>
             </div>
           </div>
 
@@ -631,8 +632,8 @@ export default function App() {
           {/* Lista badge (desktop) */}
           {!isMobile && (
             <div className="flex-shrink-0 flex items-center overflow-hidden rounded-full shadow-sm">
-              <span className="bg-white border border-zinc-200 px-3 py-1 font-condensed text-[10px] font-extrabold uppercase tracking-wider text-brand">Lista 1</span>
-              <span className="bg-brand px-3 py-1 font-condensed text-[10px] font-extrabold uppercase tracking-wider text-white">Opción 7</span>
+              <span className="bg-white border border-zinc-200 px-3 py-1 font-condensed text-[10px] font-extrabold uppercase tracking-wider text-brand">Lista {CAMPAIGN.listNumber}</span>
+              <span className="bg-brand px-3 py-1 font-condensed text-[10px] font-extrabold uppercase tracking-wider text-white">Opción {CAMPAIGN.optionNumber}</span>
             </div>
           )}
         </header>
@@ -658,7 +659,7 @@ export default function App() {
                     className="pointer-events-none absolute"
                     style={{
                       top: "-30px", right: "-30px", bottom: "-30px", left: "-30px",
-                      backgroundImage: "url('/cerro-tobati2026.webp')",
+                      backgroundImage: "url('/hero-bg.webp')",
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       filter: "grayscale(100%) blur(18px) brightness(0.75)",
@@ -670,7 +671,7 @@ export default function App() {
 
                 {/* Foto principal */}
                 <img
-                  src="/cerro-tobati2026.webp"
+                  src="/hero-bg.webp"
                   alt=""
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 h-full w-full"
@@ -689,7 +690,7 @@ export default function App() {
                   background: "linear-gradient(to bottom, rgba(80,4,16,0.55) 0%, rgba(80,4,16,0.10) 35%, rgba(80,4,16,0.10) 65%, rgba(80,4,16,0.65) 100%)"
                 }} />
 
-                {/* TOBATÍ gigante como watermark de fondo */}
+                {/* Ubicación gigante como watermark de fondo */}
                 <div className="pointer-events-none absolute inset-0 flex items-end justify-center overflow-hidden pb-0" style={{ bottom: "-10px" }}>
                   <span className="font-condensed font-black uppercase leading-none select-none" style={{
                     fontSize: isMobile ? "105px" : "220px",
@@ -697,7 +698,7 @@ export default function App() {
                     color: "transparent",
                     WebkitTextStroke: "1.5px rgba(255,255,255,0.08)",
                     lineHeight: 0.85,
-                  }}>TOBATÍ</span>
+                  }}>{CAMPAIGN.location.toUpperCase()}</span>
                 </div>
 
                 {/* Puntos decorativos */}
@@ -733,7 +734,7 @@ export default function App() {
                     <div className="relative">
                       <div className="absolute inset-0 rounded-full blur-md opacity-40" style={{ background: "#C8102E", transform: "scale(1.4)" }} />
                       <div className="relative rounded-full p-1 ring-2 ring-white/40 bg-white/10">
-                        <img src={anrlogo} alt="ANR" className="h-14 w-14 rounded-full object-cover" />
+                        <img src={partyLogo} alt={CAMPAIGN.partyAbbr} className="h-14 w-14 rounded-full object-cover" />
                       </div>
                     </div>
                     <div className="h-[1px] flex-1 bg-white/20" />
@@ -741,16 +742,16 @@ export default function App() {
 
                   {/* Badge lista — más bold */}
                   <div className="mb-5 inline-flex items-center rounded-full border border-white/30 overflow-hidden shadow-2xl" style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
-                    <span className="bg-white px-6 py-2.5 font-condensed text-[13px] font-black uppercase tracking-[0.18em] text-brand">LISTA 1</span>
+                    <span className="bg-white px-6 py-2.5 font-condensed text-[13px] font-black uppercase tracking-[0.18em] text-brand">LISTA {CAMPAIGN.listNumber}</span>
                     <div className="w-[1px] h-5 bg-white/20" />
-                    <span className="px-6 py-2.5 font-condensed text-[13px] font-black uppercase tracking-[0.18em] text-white" style={{ background: "rgba(0,0,0,0.35)" }}>OPCIÓN 7</span>
+                    <span className="px-6 py-2.5 font-condensed text-[13px] font-black uppercase tracking-[0.18em] text-white" style={{ background: "rgba(0,0,0,0.35)" }}>OPCIÓN {CAMPAIGN.optionNumber}</span>
                   </div>
 
                   {/* Heading */}
                   <div className="mb-2 flex items-center gap-3 justify-center">
                     <div className="h-[1px] w-10 bg-white/40 rounded-full" />
                     <span className="font-condensed text-[12px] font-bold uppercase tracking-[0.32em] text-white/90">
-                      Por nuevos proyectos para
+                      {CAMPAIGN.tagline}
                     </span>
                     <div className="h-[1px] w-10 bg-white/40 rounded-full" />
                   </div>
@@ -760,7 +761,7 @@ export default function App() {
                       letterSpacing: "-0.01em",
                       textShadow: "0 2px 0 rgba(0,0,0,0.25), 0 8px 48px rgba(0,0,0,0.5), 0 0 100px rgba(255,255,255,0.08)",
                     }}>
-                      TOBATÍ
+                      {CAMPAIGN.location.toUpperCase()}
                     </span>
                     <div className="mx-auto mt-2 flex items-center gap-1.5 justify-center">
                       <div className="h-[1px] w-8 bg-white/25 rounded-full" />
@@ -774,15 +775,15 @@ export default function App() {
                   {/* Candidate pill — más elegante */}
                   <div className="flex w-full max-w-[400px] items-center gap-3 rounded-2xl border border-white/20 px-3 py-2.5 shadow-xl" style={{ background: "rgba(0,0,0,0.25)", backdropFilter: "blur(12px)" }}>
                     <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white/10 ring-2 ring-white/30">
-                      <img src={logodavid} alt="David" className="h-full w-full object-cover" />
+                      <img src={candidateLogo} alt={CAMPAIGN.candidateName} className="h-full w-full object-cover" />
                     </div>
                     <div className="flex-1 text-center">
                       <div className="font-condensed text-[9px] font-bold uppercase tracking-[0.2em] text-white/50">Candidato</div>
-                      <div className="font-condensed text-[15px] font-black uppercase tracking-[0.04em] text-white leading-tight">David Dvdburg</div>
+                      <div className="font-condensed text-[15px] font-black uppercase tracking-[0.04em] text-white leading-tight">{CAMPAIGN.candidateName}</div>
                     </div>
                     <div className="flex-shrink-0 rounded-lg border border-white/20 px-2.5 py-1" style={{ background: "rgba(255,255,255,0.1)" }}>
-                      <div className="font-condensed text-[9px] font-black uppercase tracking-widest text-white/80">Concejal</div>
-                      <div className="font-condensed text-[13px] font-black text-white leading-none">2026</div>
+                      <div className="font-condensed text-[9px] font-black uppercase tracking-widest text-white/80">{CAMPAIGN.position}</div>
+                      <div className="font-condensed text-[13px] font-black text-white leading-none">{CAMPAIGN.year}</div>
                     </div>
                   </div>
                 </div>
@@ -798,7 +799,7 @@ export default function App() {
                     {/* Stat principal */}
                     <div className="flex-1 flex flex-col items-center md:items-start md:pr-8">
                       <div className="mb-0.5 text-[13px] text-zinc-400">
-                        Campaña 2026 — ya somos
+                        Campaña {CAMPAIGN.year} — ya somos
                       </div>
                       {loadingConteo ? (
                         <div className="my-2 h-[72px] w-36 animate-pulse rounded-xl bg-zinc-100" />
@@ -1400,7 +1401,7 @@ export default function App() {
                           const url = canvas.toDataURL("image/png");
                           const a = document.createElement("a");
                           a.href = url;
-                          a.download = `mapa-calor-barrios-tobati2026.png`;
+                          a.download = `mapa-calor-barrios-${CAMPAIGN.location.toLowerCase().replace(/\s+/g, "-")}${CAMPAIGN.year}.png`;
                           a.click();
                         }}
                         className="flex-shrink-0 rounded-xl border border-brand/20 bg-brand/5 px-4 py-2 font-condensed text-[11px] font-black uppercase tracking-[0.08em] text-brand transition hover:bg-brand/10"
@@ -1420,11 +1421,11 @@ export default function App() {
                       <div ref={mapaCalorRef} className="overflow-hidden rounded-xl" style={{ background: "#f4f4f5" }}>
                         {exportandoMapa && (
                           <div className="mb-0 px-5 py-5" style={{ background: "linear-gradient(135deg, #5c0614 0%, #C8102E 100%)" }}>
-                            <div className="mb-1 font-condensed text-[10px] font-bold uppercase tracking-[0.28em]" style={{ color: "rgba(255,255,255,0.5)" }}>Campaña David Dvdburg — Concejal 2026</div>
+                            <div className="mb-1 font-condensed text-[10px] font-bold uppercase tracking-[0.28em]" style={{ color: "rgba(255,255,255,0.5)" }}>Campaña {CAMPAIGN.candidateName} — {CAMPAIGN.position} {CAMPAIGN.year}</div>
                             <div className="flex items-center justify-between gap-4">
                               <div>
                                 <div className="font-display leading-none text-white" style={{ fontSize: "14px", letterSpacing: "0.08em", opacity: 0.7 }}>MAPA DE CALOR</div>
-                                <div className="font-display leading-none text-white" style={{ fontSize: "44px", letterSpacing: "0.02em" }}>TOBATÍ</div>
+                                <div className="font-display leading-none text-white" style={{ fontSize: "44px", letterSpacing: "0.02em" }}>{CAMPAIGN.location.toUpperCase()}</div>
                               </div>
                               <div className="text-right">
                                 <div className="font-condensed text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>Total registrados</div>

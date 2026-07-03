@@ -1,7 +1,7 @@
 {
-  "name": "D&D Concejal 2026",
-  "short_name": "D&D Concejal",
-  "description": "Sistema de gestión electoral - Lista 1 Opción 7",
+  "name": "Sistema de Gestión Electoral",
+  "short_name": "Gestión Electoral",
+  "description": "Sistema de gestión electoral para campañas políticas",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

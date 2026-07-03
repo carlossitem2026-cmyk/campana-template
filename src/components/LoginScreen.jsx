@@ -1,5 +1,6 @@
 import { useState } from "react";
-import anrlogo from "../img/anrlogo.webp";
+import partyLogo from "../img/party-logo.webp";
+import { CAMPAIGN } from "../config/campaign";
 
 export function LoginScreen({ onLogin, loading }) {
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ export function LoginScreen({ onLogin, loading }) {
 
         <div className="mb-6 inline-flex">
           <div className="rounded-full bg-white p-1.5 shadow-md ring-2 ring-brand/[0.15]">
-            <img src={anrlogo} alt="Logo Oficial" className="h-[80px] w-[80px] rounded-full object-cover" />
+            <img src={partyLogo} alt={CAMPAIGN.partyAbbr} className="h-[80px] w-[80px] rounded-full object-cover" />
           </div>
         </div>
 
@@ -38,7 +39,7 @@ export function LoginScreen({ onLogin, loading }) {
           BIENVENIDO
         </h1>
         <p className="mb-8 text-[13px] font-medium text-zinc-400">
-          Gestión Política · David Dvdburg
+          Gestión Política · {CAMPAIGN.candidateName}
         </p>
 
         {loginError && (

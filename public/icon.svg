@@ -12,28 +12,28 @@
   <!-- Línea decorativa superior -->
   <rect x="60" y="72" width="392" height="3" rx="2" fill="rgba(255,255,255,0.3)"/>
 
-  <!-- DAVID -->
+  <!-- Reemplazar por el nombre del candidato -->
   <text x="256" y="220"
     font-family="Arial Black, Impact, sans-serif"
     font-size="148"
     font-weight="900"
     fill="white"
     text-anchor="middle"
-    letter-spacing="-2">DAVID</text>
+    letter-spacing="-2">NOMBRE</text>
 
-  <!-- DVDBURG -->
+  <!-- Reemplazar por el apellido del candidato -->
   <text x="256" y="340"
     font-family="Arial Black, Impact, sans-serif"
     font-size="102"
     font-weight="900"
     fill="white"
     text-anchor="middle"
-    letter-spacing="0">DVDBURG</text>
+    letter-spacing="0">APELLIDO</text>
 
   <!-- Línea divisora -->
   <rect x="80" y="366" width="352" height="2" rx="1" fill="rgba(255,255,255,0.4)"/>
 
-  <!-- LISTA 1 -->
+  <!-- LISTA -->
   <text x="148" y="430"
     font-family="Arial Black, sans-serif"
     font-size="44"
@@ -45,14 +45,14 @@
   <!-- Separador vertical -->
   <rect x="252" y="396" width="2" height="48" rx="1" fill="rgba(255,255,255,0.4)"/>
 
-  <!-- OPCIÓN 7 -->
+  <!-- OPCIÓN -->
   <text x="366" y="430"
     font-family="Arial Black, sans-serif"
     font-size="44"
     font-weight="900"
     fill="white"
     text-anchor="middle"
-    letter-spacing="1">OPC. 7</text>
+    letter-spacing="1">OPC. 1</text>
 
   <!-- Línea decorativa inferior -->
   <rect x="60" y="460" width="392" height="3" rx="2" fill="rgba(255,255,255,0.3)"/>

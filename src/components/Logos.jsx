@@ -1,11 +1,12 @@
-import anrlogo from "../img/anrlogo.webp";
-import logodavid from "../img/davidlogo.webp";
+import partyLogo from "../img/party-logo.webp";
+import candidateLogo from "../img/candidate-logo.webp";
+import { CAMPAIGN } from "../config/campaign";
 
-export function ANRLogo() {
+export function PartyLogo() {
   return (
     <img
-      src={anrlogo}
-      alt="Logo Oficial"
+      src={partyLogo}
+      alt={CAMPAIGN.partyAbbr}
       style={{
         width: "100px",
         height: "100px",
@@ -19,11 +20,11 @@ export function ANRLogo() {
   );
 }
 
-export function GreenHeart() {
+export function CandidateLogo() {
   return (
     <img
-      src={logodavid}
-      alt="Logo Carmona"
+      src={candidateLogo}
+      alt={CAMPAIGN.candidateName}
       style={{ width: "50px", height: "50px", borderRadius: "10px" }}
     />
   );
