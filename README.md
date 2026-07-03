@@ -27,6 +27,7 @@ npm run build
    - `src/img/party-logo.webp` — logo del partido.
    - `src/img/candidate-logo.webp` — foto/logo del candidato.
    - `public/hero-bg.webp` / `public/hero-bg.png` — imagen de fondo del hero.
-   - `public/icon.svg` — ícono de la app (editar texto del nombre/lista antes de regenerar `icon.png` y `favicon.png`).
+   - `public/icon.svg` — ícono de la app. Después de editar el texto, regenerar los PNG con:
+     `node -e "const{Resvg}=require('@resvg/resvg-js');const fs=require('fs');const svg=fs.readFileSync('public/icon.svg','utf-8');['icon.png','favicon.png'].forEach(f=>fs.writeFileSync('public/'+f,new Resvg(svg,{fitTo:{mode:'width',value:512}}).render().asPng()))"`
 4. **Metadatos**: título y meta tags en `index.html`, y `public/manifest.json`.
 5. **Color de marca**: `brand` en `tailwind.config.js`.
