@@ -10,50 +10,41 @@
   <rect width="512" height="512" rx="80" fill="url(#bg)"/>
 
   <!-- Línea decorativa superior -->
-  <rect x="60" y="72" width="392" height="3" rx="2" fill="rgba(255,255,255,0.3)"/>
-
-  <!-- Reemplazar por el nombre del candidato -->
-  <text x="256" y="220"
-    font-family="Arial Black, Impact, sans-serif"
-    font-size="148"
-    font-weight="900"
-    fill="white"
-    text-anchor="middle"
-    letter-spacing="-2">NOMBRE</text>
-
-  <!-- Reemplazar por el apellido del candidato -->
-  <text x="256" y="340"
-    font-family="Arial Black, Impact, sans-serif"
-    font-size="102"
-    font-weight="900"
-    fill="white"
-    text-anchor="middle"
-    letter-spacing="0">APELLIDO</text>
-
-  <!-- Línea divisora -->
-  <rect x="80" y="366" width="352" height="2" rx="1" fill="rgba(255,255,255,0.4)"/>
+  <rect x="60" y="150" width="392" height="3" rx="2" fill="rgba(255,255,255,0.3)"/>
 
   <!-- LISTA -->
-  <text x="148" y="430"
+  <text x="148" y="235"
     font-family="Arial Black, sans-serif"
-    font-size="44"
+    font-size="38"
+    font-weight="900"
+    fill="rgba(255,255,255,0.75)"
+    text-anchor="middle"
+    letter-spacing="2">LISTA</text>
+  <text x="148" y="360"
+    font-family="Arial Black, Impact, sans-serif"
+    font-size="160"
     font-weight="900"
     fill="white"
-    text-anchor="middle"
-    letter-spacing="1">LISTA 1</text>
+    text-anchor="middle">1</text>
 
   <!-- Separador vertical -->
-  <rect x="252" y="396" width="2" height="48" rx="1" fill="rgba(255,255,255,0.4)"/>
+  <rect x="253" y="200" width="3" height="180" rx="1.5" fill="rgba(255,255,255,0.4)"/>
 
   <!-- OPCIÓN -->
-  <text x="366" y="430"
+  <text x="364" y="235"
     font-family="Arial Black, sans-serif"
-    font-size="44"
+    font-size="38"
+    font-weight="900"
+    fill="rgba(255,255,255,0.75)"
+    text-anchor="middle"
+    letter-spacing="2">OPCIÓN</text>
+  <text x="364" y="360"
+    font-family="Arial Black, Impact, sans-serif"
+    font-size="160"
     font-weight="900"
     fill="white"
-    text-anchor="middle"
-    letter-spacing="1">OPC. 1</text>
+    text-anchor="middle">1</text>
 
   <!-- Línea decorativa inferior -->
-  <rect x="60" y="460" width="392" height="3" rx="2" fill="rgba(255,255,255,0.3)"/>
+  <rect x="60" y="410" width="392" height="3" rx="2" fill="rgba(255,255,255,0.3)"/>
 </svg>
