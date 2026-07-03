@@ -325,13 +325,16 @@ export default function App() {
     }
     const payloadEquipo = { nombre: formEquipo.nombre, telefono: formEquipo.telefono, zona: formEquipo.zona, rol: formEquipo.rol, ...(authUserId && { user_id: authUserId }) };
     if (editIdEquipo) {
-      const nombreAnterior = equipo.find(m => m.id === editIdEquipo)?.nombre;
+      const miembroActual = equipo.find(m => m.id === editIdEquipo);
+      const nombreAnterior = miembroActual?.nombre;
       const { error: err1 } = await supabase.from("equipo").update(payloadEquipo).eq("id", editIdEquipo);
-      const { error: err2 } = await supabase.from("profiles").update({ nombre: formEquipo.nombre, rol: formEquipo.rol, telefono: formEquipo.telefono, zona: formEquipo.zona }).eq("equipo_id", editIdEquipo);
+      const { data: perfilActualizado, error: err2 } = await supabase.from("profiles").update({ nombre: formEquipo.nombre, rol: formEquipo.rol, telefono: formEquipo.telefono, zona: formEquipo.zona }).eq("user_id", miembroActual?.user_id).select();
       if (nombreAnterior && nombreAnterior !== formEquipo.nombre) {
         await supabase.from("votantes").update({ por_parte_de_nombre: formEquipo.nombre }).ilike("por_parte_de_nombre", nombreAnterior);
       }
-      if (err1 || err2) showToast("Error al actualizar", "error"); else { setFormEquipo({ nombre: "", telefono: "", rol: "coordinador", zona: "", email: "", password: "" }); setEditIdEquipo(null); cargarDatos(); showToast("Actualizado", "success"); }
+      if (err1 || err2) showToast("Error al actualizar", "error");
+      else if (!perfilActualizado?.length) showToast("No se encontró el perfil vinculado a este usuario. Verificá que tenga una cuenta de acceso creada.", "error");
+      else { setFormEquipo({ nombre: "", telefono: "", rol: "coordinador", zona: "", email: "", password: "" }); setEditIdEquipo(null); cargarDatos(); showToast("Actualizado", "success"); }
     } else {
       const { data: nuevoEquipo, error: err1 } = await supabase.from("equipo").insert([payloadEquipo]).select();
       if (err1) showToast("Error: " + err1.message, "error");
