@@ -161,7 +161,8 @@ export default function App() {
     setLoading(true);
     setAppReady(false);
     try {
-      const { data: profile } = await supabase.from("profiles").select("rol, nombre, equipo_id, activo").eq("user_id", session.user.id).single();
+      const { data: profile, error: profileError } = await supabase.from("profiles").select("rol, nombre, equipo_id, activo").eq("user_id", session.user.id).single();
+      if (profileError) showToast("No se pudo cargar el perfil: " + profileError.message, "error");
       if (profile?.activo === false) {
         await supabase.auth.signOut();
         setLoading(false);

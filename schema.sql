@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS profiles (
   nombre      TEXT,
   rol         TEXT        DEFAULT 'coordinador',
   telefono    TEXT,
-  zona        TEXT
+  zona        TEXT,
+  activo      BOOLEAN     DEFAULT true
 );
 
 -- ─── TABLA: votantes ────────────────────────────────────────
